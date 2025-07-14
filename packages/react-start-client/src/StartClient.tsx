@@ -4,7 +4,7 @@ import type { AnyRouter } from '@tanstack/router-core'
 
 let hydrationPromise: Promise<void | Array<Array<void>>> | undefined
 
-export function StartClient(props: { router: AnyRouter }) {
+export function StartClient(props: { router: AnyRouter, context?: Record<string, any> }) {
   if (!hydrationPromise) {
     if (!props.router.state.matches.length) {
       hydrationPromise = hydrate(props.router)
@@ -12,10 +12,11 @@ export function StartClient(props: { router: AnyRouter }) {
       hydrationPromise = Promise.resolve()
     }
   }
+  
   return (
     <Await
       promise={hydrationPromise}
-      children={() => <RouterProvider router={props.router} />}
+      children={() => <RouterProvider router={props.router} context={props.context}/>}
     />
   )
 }

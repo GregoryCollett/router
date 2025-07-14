@@ -4,6 +4,7 @@ import type { AnyRouter } from '@tanstack/router-core'
 
 export function StartServer<TRouter extends AnyRouter>(props: {
   router: TRouter
+  context?: Record<string, any>
 }) {
-  return <RouterProvider router={props.router} />
+  return <RouterProvider router={props.router} context={props.context} />
 }
